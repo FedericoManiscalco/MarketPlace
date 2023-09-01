@@ -25,14 +25,21 @@ public class Prodotto {
 	@Column(name = "prodotto_id")
 	private Integer prodottoId;
 
+	@Column(nullable = false)
 	private String nome;
+
+	@Column(nullable = false)
 	private String materiale;
 	private String descrizione;
 	private Integer recensione;
+
+	private String immagine;
+
+	@Column(nullable = false)
 	private Double prezzo;
 
 	@ManyToOne
-	@JoinColumn(name = "artigiano_id")
-	private Artigiano artigiano;
+	@JoinColumn(name = "utente_id", nullable = false)
+	private Utente utente;
 
 }

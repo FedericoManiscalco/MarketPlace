@@ -1,15 +1,15 @@
 package com.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.dto.ProdottoDTO;
 import com.dto.UtenteDTO;
 import com.entity.Utente;
-import com.repository.ProdottoRepository;
 import com.repository.UtenteRepository;
 
 @Service
@@ -18,8 +18,10 @@ public class UtenteServiceImpl implements UtenteService {
 	@Autowired
 	private UtenteRepository ur;
 
-	@Autowired
-	private ProdottoRepository pr;
+	@Override
+	public List<Utente> getUtenti() {
+		return ur.findAll();
+	}
 
 	@Override
 	public ResponseEntity<Utente> postUtente(UtenteDTO utenteDTO) {
@@ -34,11 +36,20 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public ResponseEntity<Utente> updateUtente(Integer id) {
+	public ResponseEntity<Utente> updateUtente(UtenteDTO utenteDTO) {
 		try {
-			Utente u = ur.findById(id).get();
-			ur.save(u);
-			return new ResponseEntity<>(u, HttpStatus.OK);
+			Utente u = ur.findById(utenteDTO.getUtenteId()).get();
+
+			u.setNome(utenteDTO.getNome());
+			u.setCognome(utenteDTO.getCognome());
+			u.setCodiceFiscale(utenteDTO.getCodiceFiscale());
+			u.setCellulare(utenteDTO.getCellulare());
+			u.setEmail(utenteDTO.getEmail());
+			u.setResidenza(utenteDTO.getResidenza());
+
+			Utente updatedUtente = ur.save(u);
+
+			return new ResponseEntity<>(updatedUtente, HttpStatus.OK);
 		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
@@ -46,11 +57,16 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public ResponseEntity<Utente> patchUtente(Integer id) {
+	public ResponseEntity<Utente> patchUtente(UtenteDTO utenteDTO) {
 		try {
-			Utente u = ur.findById(id).get();
-			ur.save(u);
-			return new ResponseEntity<>(u, HttpStatus.OK);
+
+			Utente u = ur.findById(utenteDTO.getUtenteId()).get();
+
+			if (utenteDTO.getCellulare() != null) {
+
+			}
+			Utente updatedUtente = ur.save(u);
+			return new ResponseEntity<>(updatedUtente, HttpStatus.OK);
 		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
@@ -58,27 +74,16 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public ResponseEntity<Utente> patchProdottiUtente(Integer id, ProdottoDTO prodottoDTO) {
-		try {
-			Utente u = ur.findById(id).get();
-			u.getProdotti().add(pr.findById(prodottoDTO.getProdottoId()).get());
-
-			return new ResponseEntity<>(u, HttpStatus.OK);
-		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
-
-	@Override
-	public ResponseEntity<Utente> deleteUtente(Integer id) {
+	public ResponseEntity<String> deleteUtente(Integer id) {
 		try {
 			ur.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
+			String message = "cancellazione avvenuta con successo";
+			return new ResponseEntity<>(message, HttpStatus.OK);
 		} catch (IllegalArgumentException iae) {
 			iae.printStackTrace();
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		String message = "cancellazione fallita";
+		return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
 	}
 
 	private Utente toEntity(UtenteDTO utenteDTO) {
@@ -90,7 +95,6 @@ public class UtenteServiceImpl implements UtenteService {
 		u.setCellulare(utenteDTO.getCellulare());
 		u.setEmail(utenteDTO.getEmail());
 		u.setResidenza(utenteDTO.getResidenza());
-		u.setProdotti(utenteDTO.getProdotti());
 		return u;
 
 	}

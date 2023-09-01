@@ -22,7 +22,7 @@ public class ProdottoDTO {
 	private String nome;
 	private String materiale;
 	private String descrizione;
-	private Integer recensione;
 	private Double prezzo;
-	private Integer artigianoId;
+	private String immagine;
+	private Integer utenteId;
 }
