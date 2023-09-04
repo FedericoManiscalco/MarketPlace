@@ -32,7 +32,6 @@ public class Prodotto {
 	private String materiale;
 	private String descrizione;
 	private Integer recensione;
-
 	private String immagine;
 
 	@Column(nullable = false)

@@ -49,8 +49,14 @@ public class ProdottoServiceImpl implements ProdottoService {
 	public ResponseEntity<Prodotto> updateProdotto(ProdottoDTO prodottoDTO) {
 
 		try {
-			Prodotto p = toEntity(prodottoDTO);
-			p = pr.findById(prodottoDTO.getProdottoId()).get();
+			Prodotto p = pr.findById(prodottoDTO.getProdottoId()).get();
+			p.setNome(prodottoDTO.getNome());
+			p.setMateriale(prodottoDTO.getMateriale());
+			p.setPrezzo(prodottoDTO.getPrezzo());
+			p.setDescrizione(prodottoDTO.getDescrizione());
+			p.setImmagine(prodottoDTO.getImmagine());
+			p.setUtente(ur.findById(prodottoDTO.getUtenteId()).get());
+
 			pr.save(p);
 			return new ResponseEntity<>(p, HttpStatus.ACCEPTED);
 		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {
@@ -63,8 +69,25 @@ public class ProdottoServiceImpl implements ProdottoService {
 	public ResponseEntity<Prodotto> patchProdotto(ProdottoDTO prodottoDTO) {
 
 		try {
-			Prodotto p = toEntity(prodottoDTO);
-			p = pr.findById(prodottoDTO.getProdottoId()).get();
+			Prodotto p = pr.findById(prodottoDTO.getProdottoId()).get();
+			if (prodottoDTO.getNome() != null) {
+				p.setNome(prodottoDTO.getNome());
+			}
+			if (prodottoDTO.getMateriale() != null) {
+				p.setMateriale(prodottoDTO.getMateriale());
+			}
+			if (prodottoDTO.getPrezzo() != null) {
+				p.setPrezzo(prodottoDTO.getPrezzo());
+			}
+			if (prodottoDTO.getDescrizione() != null) {
+				p.setDescrizione(prodottoDTO.getDescrizione());
+			}
+			if (prodottoDTO.getImmagine() != null) {
+				p.setImmagine(prodottoDTO.getImmagine());
+			}
+			if (prodottoDTO.getUtenteId() != null) {
+				p.setUtente(ur.findById(prodottoDTO.getUtenteId()).get());
+			}
 			pr.save(p);
 			return new ResponseEntity<>(p, HttpStatus.ACCEPTED);
 		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dto.LogInDTO;
 import com.dto.UtenteDTO;
 import com.entity.Utente;
 import com.service.UtenteService;
@@ -30,6 +31,16 @@ public class UtenteController {
 	@GetMapping("/getUtente")
 	public List<Utente> findAll() {
 		return us.getUtenti();
+	}
+
+	@GetMapping("/getUtenteByEmail/{email}")
+	public ResponseEntity<Utente> findByEmail(@PathVariable String email) {
+		return us.findByEmail(email);
+	}
+
+	@PostMapping("/postLogIn")
+	public ResponseEntity<String> postLogIn(@RequestBody LogInDTO logIn) {
+		return us.findByEmailAndPassword(logIn);
 	}
 
 	@PostMapping("/postUtente")

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.dto.LogInDTO;
 import com.dto.UtenteDTO;
 import com.entity.Utente;
 import com.repository.UtenteRepository;
@@ -21,6 +22,31 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public List<Utente> getUtenti() {
 		return ur.findAll();
+	}
+
+	@Override
+	public ResponseEntity<Utente> findByEmail(String email) {
+
+		Utente u = ur.findByEmail(email);
+		if (u != null) {
+			return new ResponseEntity<>(u, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	@Override
+	public ResponseEntity<String> findByEmailAndPassword(LogInDTO logIn) {
+		Utente u = new Utente();
+		u = ur.findByEmailAndPassword(logIn.getEmail(), logIn.getPassword());
+
+		if (u != null) {
+
+			String m = "log in avvenuto con successo";
+			return new ResponseEntity<>(m, HttpStatus.OK);
+
+		}
+		String m = "log in fallito: email o password errati";
+		return new ResponseEntity<>(m, HttpStatus.NOT_FOUND);
 	}
 
 	@Override
@@ -63,8 +89,24 @@ public class UtenteServiceImpl implements UtenteService {
 			Utente u = ur.findById(utenteDTO.getUtenteId()).get();
 
 			if (utenteDTO.getCellulare() != null) {
-
+				u.setCellulare(utenteDTO.getCellulare());
 			}
+			if (utenteDTO.getCodiceFiscale() != null) {
+				u.setCodiceFiscale(utenteDTO.getCodiceFiscale());
+			}
+			if (utenteDTO.getNome() != null) {
+				u.setNome(utenteDTO.getNome());
+			}
+			if (utenteDTO.getCognome() != null) {
+				u.setCognome(utenteDTO.getCognome());
+			}
+			if (utenteDTO.getEmail() != null) {
+				u.setEmail(utenteDTO.getEmail());
+			}
+			if (utenteDTO.getResidenza() != null) {
+				u.setResidenza(utenteDTO.getResidenza());
+			}
+
 			Utente updatedUtente = ur.save(u);
 			return new ResponseEntity<>(updatedUtente, HttpStatus.OK);
 		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {
@@ -94,6 +136,7 @@ public class UtenteServiceImpl implements UtenteService {
 		u.setCodiceFiscale(utenteDTO.getCodiceFiscale());
 		u.setCellulare(utenteDTO.getCellulare());
 		u.setEmail(utenteDTO.getEmail());
+		u.setPassword(utenteDTO.getPassword());
 		u.setResidenza(utenteDTO.getResidenza());
 		return u;
 

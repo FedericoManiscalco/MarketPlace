@@ -16,15 +16,9 @@ import lombok.ToString;
 @ToString
 
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-public class UtenteDTO {
+public class LogInDTO {
 
-	private Integer utenteId;
-	private String nome;
-	private String cognome;
-	private String codiceFiscale;
-	private Long cellulare;
 	private String email;
 	private String password;
-	private String residenza;
 
 }

@@ -4,12 +4,17 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.dto.LogInDTO;
 import com.dto.UtenteDTO;
 import com.entity.Utente;
 
 public interface UtenteService {
 
 	public List<Utente> getUtenti();
+
+	public ResponseEntity<Utente> findByEmail(String email);
+
+	public ResponseEntity<String> findByEmailAndPassword(LogInDTO logIn);
 
 	public ResponseEntity<Utente> postUtente(UtenteDTO utenteDTO);
 
