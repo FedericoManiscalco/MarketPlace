@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class UtenteController {
 	}
 
 	@PostMapping("/postLogIn")
-	public ResponseEntity<String> postLogIn(@RequestBody LogInDTO logIn) {
+	public ResponseEntity<Map<String, Boolean>> postLogIn(@RequestBody LogInDTO logIn) {
 		return us.findByEmailAndPassword(logIn);
 	}
 

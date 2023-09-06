@@ -1,5 +1,10 @@
 package com.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +37,11 @@ public class Prodotto {
 	@Column(nullable = false)
 	private String materiale;
 	private String descrizione;
-	private Integer recensione;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "prodotto")
+	private List<Recensione> recensioni = new ArrayList<>();
+
 	private String immagine;
 
 	@Column(nullable = false)

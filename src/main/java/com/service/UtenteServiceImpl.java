@@ -1,6 +1,8 @@
 package com.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -35,18 +37,18 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public ResponseEntity<String> findByEmailAndPassword(LogInDTO logIn) {
+	public ResponseEntity<Map<String, Boolean>> findByEmailAndPassword(LogInDTO logIn) {
 		Utente u = new Utente();
+		Map<String, Boolean> res = new HashMap<String, Boolean>();
 		u = ur.findByEmailAndPassword(logIn.getEmail(), logIn.getPassword());
 
 		if (u != null) {
-
-			String m = "log in avvenuto con successo";
-			return new ResponseEntity<>(m, HttpStatus.OK);
+			res.put("logged", true);
+			return new ResponseEntity<>(res, HttpStatus.OK);
 
 		}
-		String m = "log in fallito: email o password errati";
-		return new ResponseEntity<>(m, HttpStatus.NOT_FOUND);
+		res.put("logged", false);
+		return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
 	}
 
 	@Override

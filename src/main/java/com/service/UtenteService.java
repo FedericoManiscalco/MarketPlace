@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
@@ -14,7 +15,7 @@ public interface UtenteService {
 
 	public ResponseEntity<Utente> findByEmail(String email);
 
-	public ResponseEntity<String> findByEmailAndPassword(LogInDTO logIn);
+	public ResponseEntity<Map<String, Boolean>> findByEmailAndPassword(LogInDTO logIn);
 
 	public ResponseEntity<Utente> postUtente(UtenteDTO utenteDTO);
 

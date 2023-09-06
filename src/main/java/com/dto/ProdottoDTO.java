@@ -1,5 +1,9 @@
 package com.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.entity.Recensione;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
@@ -22,6 +26,7 @@ public class ProdottoDTO {
 	private String nome;
 	private String materiale;
 	private String descrizione;
+	private List<Recensione> recensioni = new ArrayList<>();
 	private Double prezzo;
 	private String immagine;
 	private Integer utenteId;
