@@ -1,72 +1,52 @@
 package com.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.dto.LogInDTO;
 import com.dto.UtenteDTO;
-import com.entity.Utente;
-import com.repository.UtenteRepository;
+import com.entity.UserInfo;
+import com.repository.UserInfoRepository;
 
 @Service
-public class UtenteServiceImpl implements UtenteService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UtenteRepository ur;
+	private UserInfoRepository ur;
 
-	@Override
-	public List<Utente> getUtenti() {
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	public List<UserInfo> getAllUsers() {
 		return ur.findAll();
 	}
 
-	@Override
-	public ResponseEntity<Utente> findByEmail(String email) {
+	public UserInfo getUser(int id) {
+		Optional<UserInfo> userInfo = ur.findById(id);
 
-		Utente u = ur.findByEmail(email);
-		if (u != null) {
-			return new ResponseEntity<>(u, HttpStatus.OK);
+		if (userInfo.isPresent()) {
+			return userInfo.get();
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+		throw new RuntimeException("User details not found for id " + id);
+	}
+
+	public String addUser(UserInfo userInfo) {
+		userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+		ur.save(userInfo);
+		return "user added to system ";
 	}
 
 	@Override
-	public ResponseEntity<Map<String, Boolean>> findByEmailAndPassword(LogInDTO logIn) {
-		Utente u = new Utente();
-		Map<String, Boolean> res = new HashMap<String, Boolean>();
-		u = ur.findByEmailAndPassword(logIn.getEmail(), logIn.getPassword());
-
-		if (u != null) {
-			res.put("logged", true);
-			return new ResponseEntity<>(res, HttpStatus.OK);
-
-		}
-		res.put("logged", false);
-		return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
-	}
-
-	@Override
-	public ResponseEntity<Utente> postUtente(UtenteDTO utenteDTO) {
-		Utente u = toEntity(utenteDTO);
+	public ResponseEntity<UserInfo> updateUtente(UtenteDTO utenteDTO) {
 		try {
-			ur.save(u);
-			return new ResponseEntity<>(u, HttpStatus.ACCEPTED);
-		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-	}
-
-	@Override
-	public ResponseEntity<Utente> updateUtente(UtenteDTO utenteDTO) {
-		try {
-			Utente u = ur.findById(utenteDTO.getUtenteId()).get();
+			UserInfo u = ur.findById(utenteDTO.getUtenteId()).get();
 
 			u.setNome(utenteDTO.getNome());
 			u.setCognome(utenteDTO.getCognome());
@@ -75,7 +55,7 @@ public class UtenteServiceImpl implements UtenteService {
 			u.setEmail(utenteDTO.getEmail());
 			u.setResidenza(utenteDTO.getResidenza());
 
-			Utente updatedUtente = ur.save(u);
+			UserInfo updatedUtente = ur.save(u);
 
 			return new ResponseEntity<>(updatedUtente, HttpStatus.OK);
 		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {
@@ -85,10 +65,10 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public ResponseEntity<Utente> patchUtente(UtenteDTO utenteDTO) {
+	public ResponseEntity<UserInfo> patchUtente(UtenteDTO utenteDTO) {
 		try {
 
-			Utente u = ur.findById(utenteDTO.getUtenteId()).get();
+			UserInfo u = ur.findById(utenteDTO.getUtenteId()).get();
 
 			if (utenteDTO.getCellulare() != null) {
 				u.setCellulare(utenteDTO.getCellulare());
@@ -109,7 +89,7 @@ public class UtenteServiceImpl implements UtenteService {
 				u.setResidenza(utenteDTO.getResidenza());
 			}
 
-			Utente updatedUtente = ur.save(u);
+			UserInfo updatedUtente = ur.save(u);
 			return new ResponseEntity<>(updatedUtente, HttpStatus.OK);
 		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {
 			e.printStackTrace();
@@ -130,8 +110,8 @@ public class UtenteServiceImpl implements UtenteService {
 		return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
 	}
 
-	private Utente toEntity(UtenteDTO utenteDTO) {
-		Utente u = new Utente();
+	private UserInfo toEntity(UtenteDTO utenteDTO) {
+		UserInfo u = new UserInfo();
 
 		u.setNome(utenteDTO.getNome());
 		u.setCognome(utenteDTO.getCognome());
@@ -143,5 +123,4 @@ public class UtenteServiceImpl implements UtenteService {
 		return u;
 
 	}
-
 }

@@ -33,6 +33,6 @@ public class Recensione {
 
 	@ManyToOne
 	@JoinColumn(name = "utente_id")
-	private Utente utente;
+	private UserInfo utente;
 
 }

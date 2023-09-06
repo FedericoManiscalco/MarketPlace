@@ -9,7 +9,8 @@ import com.entity.Prodotto;
 
 public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
 
-	@Query("SELECT u.prodottiInVendita FROM Utente u WHERE u.utenteId = :utenteId")
+	@Query("SELECT u.prodottiInVendita FROM UserInfo u WHERE u.utenteId = :utenteId")
 	public List<Prodotto> findByProdottiInVendita(Integer utenteId);
 
+	public List<Prodotto> findByNomeContaining(String nome);
 }

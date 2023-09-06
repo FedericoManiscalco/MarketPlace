@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.dto.ProdottoDTO;
 import com.entity.Prodotto;
 import com.repository.ProdottoRepository;
-import com.repository.UtenteRepository;
+import com.repository.UserInfoRepository;
 
 @Service
 public class ProdottoServiceImpl implements ProdottoService {
@@ -20,7 +20,7 @@ public class ProdottoServiceImpl implements ProdottoService {
 	private ProdottoRepository pr;
 
 	@Autowired
-	private UtenteRepository ur;
+	private UserInfoRepository ur;
 
 	@Override
 	public List<Prodotto> getProdotti() {

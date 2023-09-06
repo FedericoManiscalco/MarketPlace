@@ -49,6 +49,6 @@ public class Prodotto {
 
 	@ManyToOne
 	@JoinColumn(name = "utente_id", nullable = false)
-	private Utente utente;
+	private UserInfo utente;
 
 }

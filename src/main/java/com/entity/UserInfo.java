@@ -11,19 +11,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
-public class Utente {
-
+@Table(name = "user_details")
+@Data
+public class UserInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "utente_id")
@@ -50,6 +44,9 @@ public class Utente {
 	@Column(nullable = false)
 	private String residenza;
 
+	@Column(nullable = false)
+	private String roles;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "utente")
 	private List<Prodotto> prodottiInVendita = new ArrayList<>();
@@ -57,5 +54,4 @@ public class Utente {
 	@JsonIgnore
 	@OneToMany(mappedBy = "utente")
 	private List<Recensione> recensioni = new ArrayList<>();
-
 }
