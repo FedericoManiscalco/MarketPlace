@@ -40,7 +40,7 @@ public class Prodotto {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "prodotto")
-	private List<Recensione> recensioni = new ArrayList<>();
+	private List<Recensione> recensioniProdotto = new ArrayList<>();
 
 	private String immagine;
 

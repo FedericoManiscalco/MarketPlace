@@ -110,17 +110,17 @@ public class UserServiceImpl implements UserService {
 		return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
 	}
 
-	private UserInfo toEntity(UtenteDTO utenteDTO) {
-		UserInfo u = new UserInfo();
-
-		u.setNome(utenteDTO.getNome());
-		u.setCognome(utenteDTO.getCognome());
-		u.setCodiceFiscale(utenteDTO.getCodiceFiscale());
-		u.setCellulare(utenteDTO.getCellulare());
-		u.setEmail(utenteDTO.getEmail());
-		u.setPassword(utenteDTO.getPassword());
-		u.setResidenza(utenteDTO.getResidenza());
-		return u;
-
-	}
+//	private UserInfo toEntity(UtenteDTO utenteDTO) {
+//		UserInfo u = new UserInfo();
+//
+//		u.setNome(utenteDTO.getNome());
+//		u.setCognome(utenteDTO.getCognome());
+//		u.setCodiceFiscale(utenteDTO.getCodiceFiscale());
+//		u.setCellulare(utenteDTO.getCellulare());
+//		u.setEmail(utenteDTO.getEmail());
+//		u.setPassword(utenteDTO.getPassword());
+//		u.setResidenza(utenteDTO.getResidenza());
+//		return u;
+//
+//	}
 }
