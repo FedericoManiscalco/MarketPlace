@@ -16,13 +16,9 @@ import lombok.ToString;
 @ToString
 
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-public class ProdottoDTO {
+public class RecensioneDTO {
 
+	private String messaggio;
 	private Integer prodottoId;
-	private String nome;
-	private String materiale;
-	private String descrizione;
-	private Double prezzo;
-	private String immagine;
-	private Integer utenteId;
+
 }

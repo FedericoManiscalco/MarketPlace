@@ -31,4 +31,8 @@ public class Recensione {
 	@JoinColumn(name = "prodotto_id")
 	private Prodotto prodotto;
 
+	@ManyToOne
+	@JoinColumn(name = "utente_id")
+	private Utente utente;
+
 }

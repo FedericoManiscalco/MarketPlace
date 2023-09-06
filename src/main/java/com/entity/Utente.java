@@ -54,4 +54,8 @@ public class Utente {
 	@OneToMany(mappedBy = "utente")
 	private List<Prodotto> prodottiInVendita = new ArrayList<>();
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "utente")
+	private List<Recensione> recensioni = new ArrayList<>();
+
 }
