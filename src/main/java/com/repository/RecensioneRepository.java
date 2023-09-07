@@ -13,5 +13,5 @@ public interface RecensioneRepository extends JpaRepository<Recensione, Integer>
 	public List<Recensione> findRecensioniByUtente(Integer utenteId);
 
 	@Query("SELECT p.recensioniProdotto FROM Prodotto p WHERE p.prodottoId = :prodottoId")
-	public List<Recensione> findRecensioniByProdotto(Integer prodottoId);
+	public List<Recensione> findRecensioniByProdotto(Integer prodottoId); //
 }
