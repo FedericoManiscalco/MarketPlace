@@ -23,6 +23,6 @@ public class ProdottoDTO {
 	private String materiale;
 	private String descrizione;
 	private Double prezzo;
-	private String immagine;
+	private Long imageId;
 	private Integer utenteId;
 }
