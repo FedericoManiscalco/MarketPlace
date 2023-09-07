@@ -37,10 +37,10 @@ public class UserServiceImpl implements UserService {
 		throw new RuntimeException("User details not found for id " + id);
 	}
 
-	public String addUser(UserInfo userInfo) {
+	public ResponseEntity<UserInfo> addUser(UserInfo userInfo) {
 		userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
 		ur.save(userInfo);
-		return "user added to system ";
+		return new ResponseEntity<>(userInfo, HttpStatus.CREATED);
 	}
 
 	@Override

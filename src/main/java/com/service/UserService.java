@@ -17,7 +17,7 @@ public interface UserService {
 
 	public UserInfo getUser(int id);
 
-	public String addUser(UserInfo userInfo);
+	public ResponseEntity<UserInfo> addUser(UserInfo userInfo);
 
 	public List<UserInfo> getAllUsers();
 

@@ -1,6 +1,8 @@
 package com.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,6 +28,7 @@ import com.entity.UserInfo;
 import com.service.JwtService;
 import com.service.UserServiceImpl;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -44,7 +48,7 @@ public class UserController {
 	}
 
 	@PostMapping("/addUser")
-	public String addUser(@RequestBody UserInfo userInfo) {
+	public ResponseEntity<UserInfo> addUser(@RequestBody UserInfo userInfo) {
 		return us.addUser(userInfo);
 	}
 
@@ -61,12 +65,14 @@ public class UserController {
 	}
 
 	@PostMapping("/getToken")
-	public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+	public Map<String, String> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
 
 		if (authentication.isAuthenticated()) {
-			return jwtService.generateToken(authRequest.getEmail());
+			Map<String, String> tokenJson = new HashMap<String, String>();
+			tokenJson.put("token", jwtService.generateToken(authRequest.getEmail()));
+			return tokenJson;
 		}
 
 		throw new UsernameNotFoundException("invalid user details.");
