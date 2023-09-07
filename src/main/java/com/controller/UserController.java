@@ -1,6 +1,8 @@
 package com.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -61,12 +63,14 @@ public class UserController {
 	}
 
 	@PostMapping("/getToken")
-	public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+	public Map<String, String> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
 
 		if (authentication.isAuthenticated()) {
-			return jwtService.generateToken(authRequest.getEmail());
+			Map<String, String> tokenJson = new HashMap<String, String>();
+			tokenJson.put("token", jwtService.generateToken(authRequest.getEmail()));
+			return tokenJson;
 		}
 
 		throw new UsernameNotFoundException("invalid user details.");
