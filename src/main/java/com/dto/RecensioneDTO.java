@@ -20,5 +20,6 @@ public class RecensioneDTO {
 
 	private String messaggio;
 	private Integer prodottoId;
+	private Integer utenteId;
 
 }

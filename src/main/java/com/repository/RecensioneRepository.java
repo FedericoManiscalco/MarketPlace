@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.entity.Recensione;
 
 public interface RecensioneRepository extends JpaRepository<Recensione, Integer> {
+
 	@Query("SELECT u.recensioni FROM UserInfo u WHERE u.utenteId = :utenteId")
 	public List<Recensione> findRecensioniByUtente(Integer utenteId);
 

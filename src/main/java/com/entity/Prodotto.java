@@ -43,7 +43,7 @@ public class Prodotto {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "prodotto")
-	private List<Recensione> recensioni = new ArrayList<>();
+	private List<Recensione> recensioniProdotto = new ArrayList<>();
 
 	@OneToOne()
 	@JoinColumn(name = "image_id", referencedColumnName = "image_id")
