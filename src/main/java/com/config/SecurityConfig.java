@@ -37,7 +37,8 @@ public class SecurityConfig {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		return http.authorizeHttpRequests(auth -> {
-			auth.requestMatchers("/", "/api/addUser", "/api/getToken", "/get/image/**").permitAll();
+			auth.requestMatchers("/api/v1/isRunning", "/api/v1/addUser", "/api/v1/getToken", "api/v1//get/image/**")
+					.permitAll();
 			auth.anyRequest().authenticated();
 		}).csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
