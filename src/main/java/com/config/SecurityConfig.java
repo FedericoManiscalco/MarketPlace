@@ -35,11 +35,21 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		return http.csrf().disable().authorizeHttpRequests().requestMatchers("/api/addUser", "/api/getToken")
-				.permitAll().and().authorizeHttpRequests().requestMatchers("/api/**").authenticated().and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.authenticationProvider(authenticationProvider())
+
+		return http.authorizeHttpRequests(auth -> {
+			auth.requestMatchers("/", "/api/addUser", "/api/getToken", "/get/image/**").permitAll();
+			auth.anyRequest().authenticated();
+		}).csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.httpBasic(it -> {
+				}).authenticationProvider(authenticationProvider())
 				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
+//		return http.csrf(withDefaults()).disable().authorizeHttpRequests()
+//				.requestMatchers("/api/addUser", "/api/getToken", "/upload/image").permitAll().and()
+//				.authorizeHttpRequests().requestMatchers("/api/**").authenticated().and()
+//				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//				.authenticationProvider(authenticationProvider())
+//				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}
 
 	@Bean

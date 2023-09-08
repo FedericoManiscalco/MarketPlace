@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -9,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.dto.ProdottoDTO;
+import com.entity.Image;
 import com.entity.Prodotto;
+import com.repository.ImageRepository;
 import com.repository.ProdottoRepository;
 import com.repository.UserInfoRepository;
 
@@ -21,6 +24,9 @@ public class ProdottoServiceImpl implements ProdottoService {
 
 	@Autowired
 	private UserInfoRepository ur;
+
+	@Autowired
+	ImageRepository ir;
 
 	@Override
 	public List<Prodotto> getProdotti() {
@@ -34,9 +40,12 @@ public class ProdottoServiceImpl implements ProdottoService {
 
 	@Override
 	public ResponseEntity<Prodotto> postProdotto(ProdottoDTO prodottoDTO) {
-
+		System.out.println(prodottoDTO);
 		try {
 			Prodotto p = toEntity(prodottoDTO);
+			Optional<Image> img = ir.findById(prodottoDTO.getImageId());
+			if (img.isPresent())
+				p.setImage(img.get());
 			pr.save(p);
 			return new ResponseEntity<>(p, HttpStatus.ACCEPTED);
 		} catch (OptimisticLockingFailureException | IllegalArgumentException e) {
@@ -54,7 +63,6 @@ public class ProdottoServiceImpl implements ProdottoService {
 			p.setMateriale(prodottoDTO.getMateriale());
 			p.setPrezzo(prodottoDTO.getPrezzo());
 			p.setDescrizione(prodottoDTO.getDescrizione());
-			p.setImmagine(prodottoDTO.getImmagine());
 			p.setUtente(ur.findById(prodottoDTO.getUtenteId()).get());
 
 			pr.save(p);
@@ -81,9 +89,6 @@ public class ProdottoServiceImpl implements ProdottoService {
 			}
 			if (prodottoDTO.getDescrizione() != null) {
 				p.setDescrizione(prodottoDTO.getDescrizione());
-			}
-			if (prodottoDTO.getImmagine() != null) {
-				p.setImmagine(prodottoDTO.getImmagine());
 			}
 			if (prodottoDTO.getUtenteId() != null) {
 				p.setUtente(ur.findById(prodottoDTO.getUtenteId()).get());
@@ -116,7 +121,6 @@ public class ProdottoServiceImpl implements ProdottoService {
 		p.setMateriale(prodottoDTO.getMateriale());
 		p.setPrezzo(prodottoDTO.getPrezzo());
 		p.setDescrizione(prodottoDTO.getDescrizione());
-		p.setImmagine(prodottoDTO.getImmagine());
 		p.setUtente(ur.findById(prodottoDTO.getUtenteId()).get());
 
 		return p;

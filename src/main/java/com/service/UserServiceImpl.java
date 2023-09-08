@@ -37,10 +37,10 @@ public class UserServiceImpl implements UserService {
 		throw new RuntimeException("User details not found for id " + id);
 	}
 
-	public String addUser(UserInfo userInfo) {
+	public ResponseEntity<UserInfo> addUser(UserInfo userInfo) {
 		userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
 		ur.save(userInfo);
-		return "user added to system ";
+		return new ResponseEntity<>(userInfo, HttpStatus.CREATED);
 	}
 
 	@Override
@@ -110,17 +110,17 @@ public class UserServiceImpl implements UserService {
 		return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
 	}
 
-	private UserInfo toEntity(UtenteDTO utenteDTO) {
-		UserInfo u = new UserInfo();
-
-		u.setNome(utenteDTO.getNome());
-		u.setCognome(utenteDTO.getCognome());
-		u.setCodiceFiscale(utenteDTO.getCodiceFiscale());
-		u.setCellulare(utenteDTO.getCellulare());
-		u.setEmail(utenteDTO.getEmail());
-		u.setPassword(utenteDTO.getPassword());
-		u.setResidenza(utenteDTO.getResidenza());
-		return u;
-
-	}
+//	private UserInfo toEntity(UtenteDTO utenteDTO) {
+//		UserInfo u = new UserInfo();
+//
+//		u.setNome(utenteDTO.getNome());
+//		u.setCognome(utenteDTO.getCognome());
+//		u.setCodiceFiscale(utenteDTO.getCodiceFiscale());
+//		u.setCellulare(utenteDTO.getCellulare());
+//		u.setEmail(utenteDTO.getEmail());
+//		u.setPassword(utenteDTO.getPassword());
+//		u.setResidenza(utenteDTO.getResidenza());
+//		return u;
+//
+//	}
 }

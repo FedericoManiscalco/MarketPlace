@@ -20,7 +20,7 @@ import com.entity.Prodotto;
 import com.service.ProdottoService;
 
 @CrossOrigin
-@RequestMapping("/prodotto/v1")
+@RequestMapping("/api/v1")
 @RestController
 public class ProdottoController {
 
@@ -38,6 +38,7 @@ public class ProdottoController {
 	}
 
 	@PostMapping("/postProdotto")
+	// @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<Prodotto> postProdotto(@RequestBody ProdottoDTO prodottoDTO) {
 		return ps.postProdotto(prodottoDTO);
 	}
