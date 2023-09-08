@@ -38,19 +38,19 @@ public class ImageController {
 		return ResponseEntity.status(HttpStatus.OK).body(new ImageUploadResDTO(img.getImageId(), img.getName()));
 	}
 
-	@GetMapping(path = { "/get/image/info/{name}" })
-	public Image getImageDetails(@PathVariable("name") String name) throws IOException {
+//	@GetMapping(path = { "/getImage/{name}" })
+//	public Image getImageDetails(@PathVariable("name") String name) throws IOException {
+//
+//		final Optional<Image> dbImage = imageRepository.findByName(name);
+//
+//		return Image.builder().name(dbImage.get().getName()).type(dbImage.get().getType())
+//				.image(ImageUtility.decompressImage(dbImage.get().getImage())).build();
+//	}
 
-		final Optional<Image> dbImage = imageRepository.findByName(name);
+	@GetMapping(path = { "/getImage/{id}" })
+	public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id) throws IOException {
 
-		return Image.builder().name(dbImage.get().getName()).type(dbImage.get().getType())
-				.image(ImageUtility.decompressImage(dbImage.get().getImage())).build();
-	}
-
-	@GetMapping(path = { "/get/image/{name}" })
-	public ResponseEntity<byte[]> getImage(@PathVariable("name") String name) throws IOException {
-
-		final Optional<Image> dbImage = imageRepository.findByName(name);
+		final Optional<Image> dbImage = imageRepository.findById(id);
 
 		return ResponseEntity.ok().contentType(MediaType.valueOf(dbImage.get().getType()))
 				.body(ImageUtility.decompressImage(dbImage.get().getImage()));
