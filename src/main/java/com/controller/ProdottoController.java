@@ -20,7 +20,7 @@ import com.entity.Prodotto;
 import com.service.ProdottoService;
 
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 @RestController
 public class ProdottoController {
 

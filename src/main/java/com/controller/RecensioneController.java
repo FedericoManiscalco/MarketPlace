@@ -19,7 +19,7 @@ import com.entity.Recensione;
 import com.service.RecensioneService;
 
 @CrossOrigin
-@RequestMapping("/recensione/v1")
+@RequestMapping("/api/v1")
 @RestController
 public class RecensioneController {
 

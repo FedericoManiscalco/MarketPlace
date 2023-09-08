@@ -24,7 +24,7 @@ import com.util.ImageUtility;
 @RestController
 //@CrossOrigin(origins = "http://localhost:8082") open for specific port
 @CrossOrigin() // open for all ports
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class ImageController {
 
 	@Autowired

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,7 +29,7 @@ import com.service.UserServiceImpl;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class UserController {
 
 	@Autowired
@@ -53,13 +52,11 @@ public class UserController {
 	}
 
 	@GetMapping("/getAllUsers")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public List<UserInfo> getAllUsers() {
 		return us.getAllUsers();
 	}
 
 	@GetMapping("/{id}")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public UserInfo getUserById(@PathVariable int id) {
 		return us.getUser(id);
 	}
