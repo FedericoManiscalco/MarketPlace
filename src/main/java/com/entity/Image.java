@@ -1,5 +1,7 @@
 package com.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,7 @@ public class Image {
 	@Column(name = "image", unique = false, nullable = false, length = 100000)
 	private byte[] image;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "image")
 	private Prodotto prodotto;
 }
