@@ -13,6 +13,8 @@ public interface ProdottoService {
 
 	public List<Prodotto> findByProdottiInVendita(Integer utenteId);
 
+	public List<Prodotto> findByNomeContaining(String nome);
+
 	public ResponseEntity<Prodotto> postProdotto(ProdottoDTO prodottoDTO);
 
 	public ResponseEntity<Prodotto> updateProdotto(ProdottoDTO prodottoDTO);

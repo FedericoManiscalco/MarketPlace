@@ -38,6 +38,10 @@ public class ProdottoServiceImpl implements ProdottoService {
 		return pr.findByProdottiInVendita(utenteId);
 	}
 
+	public List<Prodotto> findByNomeContaining(String nome) {
+		return pr.findByNomeContaining(nome);
+	}
+
 	@Override
 	public ResponseEntity<Prodotto> postProdotto(ProdottoDTO prodottoDTO) {
 		System.out.println(prodottoDTO);

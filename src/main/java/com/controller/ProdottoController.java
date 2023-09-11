@@ -37,6 +37,11 @@ public class ProdottoController {
 		return ps.findByProdottiInVendita(utenteId);
 	}
 
+	@GetMapping("/getProdottiByNome/{nome}")
+	public List<Prodotto> findProdottiInVendita(@PathVariable String nome) {
+		return ps.findByNomeContaining(nome);
+	}
+
 	@PostMapping("/postProdotto")
 	// @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<Prodotto> postProdotto(@RequestBody ProdottoDTO prodottoDTO) {
