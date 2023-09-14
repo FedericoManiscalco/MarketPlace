@@ -1,6 +1,5 @@
 package com.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -43,9 +42,9 @@ public class Prodotto {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "prodotto")
-	private List<Recensione> recensioniProdotto = new ArrayList<>();
+	private List<Recensione> recensioniProdotto;
 
-	@OneToOne()
+	@OneToOne
 	@JoinColumn(name = "image_id", referencedColumnName = "image_id")
 	private Image image;
 

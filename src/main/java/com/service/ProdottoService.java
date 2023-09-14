@@ -12,6 +12,8 @@ public interface ProdottoService {
 
 	public List<Prodotto> getProdotti();
 
+	public List<ProdottoDTO> findProdottoLight();
+
 	public List<Prodotto> findByProdottiInVendita(Integer utenteId);
 
 	public List<Prodotto> findByNomeContaining(String nome);

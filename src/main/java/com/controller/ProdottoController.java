@@ -33,6 +33,11 @@ public class ProdottoController {
 		return ps.getProdotti();
 	}
 
+	@GetMapping("/getProdottoLight")
+	public List<ProdottoDTO> findProdottoLight() {
+		return ps.findProdottoLight();
+	}
+
 	@GetMapping("/getProdottiInVendita/{utenteId}")
 	public List<Prodotto> findProdottiInVendita(@PathVariable Integer utenteId) {
 		return ps.findByProdottiInVendita(utenteId);

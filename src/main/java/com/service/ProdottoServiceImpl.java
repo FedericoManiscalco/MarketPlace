@@ -34,6 +34,10 @@ public class ProdottoServiceImpl implements ProdottoService {
 		return pr.findAll();
 	}
 
+	public List<ProdottoDTO> findProdottoLight() {
+		return pr.findProdottoLight();
+	}
+
 	@Override
 	public List<Prodotto> findByProdottiInVendita(Integer utenteId) {
 		return pr.findByProdottiInVendita(utenteId);
