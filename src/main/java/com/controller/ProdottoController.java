@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dto.CarrelloDTO;
 import com.dto.ProdottoDTO;
 import com.entity.Prodotto;
 import com.service.ProdottoService;
@@ -40,6 +41,16 @@ public class ProdottoController {
 	@GetMapping("/getProdottiByNome/{nome}")
 	public List<Prodotto> findProdottiInVendita(@PathVariable String nome) {
 		return ps.findByNomeContaining(nome);
+	}
+
+	@GetMapping("/getProdottiById")
+	public List<Prodotto> findByProdottoIdIn(@RequestBody CarrelloDTO carrello) {
+		return ps.findByProdottoIdIn(carrello);
+	}
+
+	@GetMapping("/getProdottiByOffsetAndLimit/{limit}/{offset}")
+	public List<Prodotto> findProdottoWithLimitAndOffset(@PathVariable Integer limit, @PathVariable Integer offset) {
+		return ps.findProdottoWithLimitAndOffset(limit, offset);
 	}
 
 	@PostMapping("/postProdotto")

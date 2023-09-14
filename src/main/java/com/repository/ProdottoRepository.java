@@ -13,4 +13,9 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
 	public List<Prodotto> findByProdottiInVendita(Integer utenteId);
 
 	public List<Prodotto> findByNomeContaining(String nome);
+
+	public List<Prodotto> findByProdottoIdIn(List<Integer> prodottiCarrello);
+
+	@Query(value = "SELECT * FROM prodotto limit ? offset ?", nativeQuery = true)
+	public List<Prodotto> findProdottoWithLimitAndOffset(Integer limit, Integer offset);
 }
