@@ -1,6 +1,8 @@
 package com.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,16 +108,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseEntity<String> deleteUtente(Integer id) {
+	public ResponseEntity<Map<String, String>> deleteUtente(Integer id) {
+		Map<String, String> toReturn = new HashMap<>();
 		try {
 			ur.deleteById(id);
-			String message = "cancellazione avvenuta con successo";
-			return new ResponseEntity<>(message, HttpStatus.OK);
+			toReturn.put("message", "cancellazione avvenuta con successo");
+			return new ResponseEntity<>(toReturn, HttpStatus.OK);
 		} catch (IllegalArgumentException iae) {
 			iae.printStackTrace();
 		}
-		String message = "cancellazione fallita";
-		return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+		toReturn.put("message", "cancellazione fallita");
+		return new ResponseEntity<>(toReturn, HttpStatus.NOT_FOUND);
 	}
 
 //	private UserInfo toEntity(UtenteDTO utenteDTO) {

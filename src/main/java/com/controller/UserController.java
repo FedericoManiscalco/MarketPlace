@@ -91,7 +91,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/deleteUtente/{id}")
-	public ResponseEntity<String> deleteUtente(@PathVariable Integer id) {
+	public ResponseEntity<Map<String, String>> deleteUtente(@PathVariable Integer id) {
 		return us.deleteUtente(id);
 	}
 }

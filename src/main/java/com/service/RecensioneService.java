@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
@@ -19,6 +20,6 @@ public interface RecensioneService {
 
 	public ResponseEntity<Recensione> updateRecensione(RecensioneDTO recensioneDTO);
 
-	public ResponseEntity<String> deleteRecensione(Integer id);
+	public ResponseEntity<Map<String, String>> deleteRecensione(Integer id);
 
 }

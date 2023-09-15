@@ -1,6 +1,8 @@
 package com.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -66,16 +68,18 @@ public class RecensioneServiceImpl implements RecensioneService {
 	}
 
 	@Override
-	public ResponseEntity<String> deleteRecensione(Integer id) {
+	public ResponseEntity<Map<String, String>> deleteRecensione(Integer id) {
+		Map<String, String> toReturn = new HashMap<>();
 		try {
 			rr.deleteById(id);
-			String message = "cancellazione avvenuta con successo";
-			return new ResponseEntity<>(message, HttpStatus.OK);
+			toReturn.put("message", "cancellazione avvenuta con successo");
+			return new ResponseEntity<>(toReturn, HttpStatus.OK);
+
 		} catch (IllegalArgumentException iae) {
 			iae.printStackTrace();
 		}
-		String message = "cancellazione fallita";
-		return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+		toReturn.put("message", "cancellazione fallita");
+		return new ResponseEntity<>(toReturn, HttpStatus.NOT_FOUND);
 	}
 
 	private Recensione toEntity(RecensioneDTO recensioneDTO) {
