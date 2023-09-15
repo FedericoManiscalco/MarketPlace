@@ -14,13 +14,13 @@ public interface ProdottoService {
 
 	public List<ProdottoDTO> findProdottoLight();
 
-	public List<Prodotto> findByProdottiInVendita(Integer utenteId);
+	public List<ProdottoDTO> findByProdottiInVendita(Integer utenteId);
 
-	public List<Prodotto> findByNomeContaining(String nome);
+	public List<ProdottoDTO> findByNomeContaining(String nome);
 
-	public List<Prodotto> findByProdottoIdIn(CarrelloDTO carrello);
+	public List<ProdottoDTO> findByProdottoIdIn(CarrelloDTO carrello);
 
-	public List<Prodotto> findProdottoWithLimitAndOffset(Integer limit, Integer offset);
+	public List<ProdottoDTO> findProdottoWithLimitAndOffset(Integer limit, Integer offset);
 
 	public ResponseEntity<Prodotto> postProdotto(ProdottoDTO prodottoDTO);
 

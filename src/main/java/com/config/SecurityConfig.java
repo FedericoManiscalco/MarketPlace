@@ -1,5 +1,7 @@
 package com.config;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,26 +46,26 @@ public class SecurityConfig {
 		return http.authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/api/v1/isRunning", "/api/v1/addUser", "/api/v1/getToken", "api/v1/getImage/**",
 					"api/v1/getProdotto", "api/v1/getProdottiByOffsetAndLimit", "api/v1/getProdottiById",
-					"api/v1/getProdottoLight", "api/v1/getProdottiByNome/**").permitAll();
+					"api/v1/getProdottoLight", "api/v1/getProdottiByNome/**", "api/v1/getProdottiInVendita/**")
+					.permitAll();
 			auth.anyRequest().authenticated();
-		}).csrf(csrf -> csrf.disable())
+		}).csrf(csrf -> csrf.disable()).cors(withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.httpBasic(it -> {
 				}).authenticationProvider(authenticationProvider())
 				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
-//		return http.csrf(withDefaults()).disable().authorizeHttpRequests()
-//				.requestMatchers("/api/addUser", "/api/getToken", "/upload/image").permitAll().and()
-//				.authorizeHttpRequests().requestMatchers("/api/**").authenticated().and()
-//				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//				.authenticationProvider(authenticationProvider())
-//				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
+
 	}
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+		configuration.setAllowCredentials(true);
+		configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Access-Control-Allow-Origin",
+				"Access-Control-Request-Method", "Access-Control-Request-Headers", "Origin", "Cache-Control",
+				"Content-Type", "Authorization"));
+		configuration.setAllowedMethods(Arrays.asList("DELETE", "GET", "POST", "PATCH", "PUT"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;

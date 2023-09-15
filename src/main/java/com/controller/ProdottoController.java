@@ -40,24 +40,23 @@ public class ProdottoController {
 	}
 
 	@GetMapping("/getProdottiInVendita/{utenteId}")
-	public List<Prodotto> findProdottiInVendita(@PathVariable Integer utenteId) {
+	public List<ProdottoDTO> findProdottiInVendita(@PathVariable Integer utenteId) {
 		return ps.findByProdottiInVendita(utenteId);
 	}
 
 	@GetMapping("/getProdottiByNome/{nome}")
-	public List<Prodotto> findProdottiInVendita(@PathVariable String nome) {
+	public List<ProdottoDTO> findProdottiInVendita(@PathVariable String nome) {
 		return ps.findByNomeContaining(nome);
 	}
 
-	@GetMapping("/getProdottiById")
-	public List<Prodotto> findByProdottoIdIn(@RequestBody CarrelloDTO carrello) {
+	@PostMapping("/getProdottiById")
+	public List<ProdottoDTO> findByProdottoIdIn(@RequestBody CarrelloDTO carrello) {
 		return ps.findByProdottoIdIn(carrello);
 	}
 
 	@GetMapping("/getProdottiByOffsetAndLimit")
-	public List<Prodotto> findProdottoWithLimitAndOffset(@RequestParam(name = "limit") String limit,
-			@RequestParam(name = "offset") String offset) {
-		return ps.findProdottoWithLimitAndOffset(Integer.parseInt(limit), Integer.parseInt(offset));
+	public List<ProdottoDTO> findProdottoWithLimitAndOffset(@RequestParam Integer limit, @RequestParam Integer offset) {
+		return ps.findProdottoWithLimitAndOffset(limit, offset);
 	}
 
 	@PostMapping("/postProdotto")

@@ -1,5 +1,9 @@
 package com.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.entity.Prodotto;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
@@ -23,8 +27,13 @@ public class UtenteDTO {
 	private String cognome;
 	private String codiceFiscale;
 	private Long cellulare;
+	private List<Prodotto> prodottiInVendita = new ArrayList<>();
 	private String email;
 	private String password;
 	private String residenza;
+
+	public UtenteDTO(List<Prodotto> prodottiInVendita) {
+		this.prodottiInVendita = prodottiInVendita;
+	}
 
 }
