@@ -19,6 +19,7 @@ import lombok.ToString;
 public class RecensioneDTO {
 
 	private String messaggio;
+	private Integer voto;
 	private Integer prodottoId;
 	private Integer utenteId;
 

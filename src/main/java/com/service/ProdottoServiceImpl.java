@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.dto.CarrelloDTO;
 import com.dto.ProdottoDTO;
 import com.entity.Image;
 import com.entity.Prodotto;
@@ -47,8 +46,8 @@ public class ProdottoServiceImpl implements ProdottoService {
 		return pr.findByNomeContaining(nome);
 	}
 
-	public List<ProdottoDTO> findByProdottoIdIn(CarrelloDTO carrello) {
-		return pr.findByProdottoIdIn(carrello.getProdottiCarrello());
+	public List<ProdottoDTO> findByProdottoIdIn(List<Integer> prodottiCarrello) {
+		return pr.findByProdottoIdIn(prodottiCarrello);
 	}
 
 	public List<ProdottoDTO> findProdottoWithLimitAndOffset(Integer limit, Integer offset) {

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.dto.CarrelloDTO;
 import com.dto.ProdottoDTO;
 import com.entity.Prodotto;
 
@@ -18,7 +17,7 @@ public interface ProdottoService {
 
 	public List<ProdottoDTO> findByNomeContaining(String nome);
 
-	public List<ProdottoDTO> findByProdottoIdIn(CarrelloDTO carrello);
+	public List<ProdottoDTO> findByProdottoIdIn(List<Integer> prodottiCarrello);
 
 	public List<ProdottoDTO> findProdottoWithLimitAndOffset(Integer limit, Integer offset);
 

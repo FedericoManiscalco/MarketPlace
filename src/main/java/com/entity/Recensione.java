@@ -27,6 +27,8 @@ public class Recensione {
 
 	private String messaggio;
 
+	private Integer voto;
+
 	@ManyToOne
 	@JoinColumn(name = "prodotto_id")
 	private Prodotto prodotto;

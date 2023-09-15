@@ -82,6 +82,7 @@ public class RecensioneServiceImpl implements RecensioneService {
 		Recensione r = new Recensione();
 
 		r.setMessaggio(recensioneDTO.getMessaggio());
+		r.setVoto(recensioneDTO.getVoto());
 		r.setProdotto(pr.findById(recensioneDTO.getProdottoId()).get());
 		r.setUtente(ur.findById(recensioneDTO.getUtenteId()).get());
 
