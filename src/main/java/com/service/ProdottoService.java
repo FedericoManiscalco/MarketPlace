@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
@@ -27,6 +28,6 @@ public interface ProdottoService {
 
 	public ResponseEntity<Prodotto> patchProdotto(ProdottoDTO prodottoDTO);
 
-	public ResponseEntity<String> deleteProdotto(Integer id);
+	public ResponseEntity<Map<String, String>> deleteProdotto(Integer id);
 
 }

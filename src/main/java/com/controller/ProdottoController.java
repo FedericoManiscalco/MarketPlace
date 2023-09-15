@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -71,11 +72,12 @@ public class ProdottoController {
 
 	@PatchMapping("/patchProdotto")
 	public ResponseEntity<Prodotto> patchProdotto(@RequestBody ProdottoDTO prodottoDTO) {
+		System.out.println(prodottoDTO);
 		return ps.patchProdotto(prodottoDTO);
 	}
 
 	@DeleteMapping("/deleteProdotto/{id}")
-	public ResponseEntity<String> deleteProdotto(@PathVariable Integer id) {
+	public ResponseEntity<Map<String, String>> deleteProdotto(@PathVariable Integer id) {
 		return ps.deleteProdotto(id);
 	}
 
