@@ -25,6 +25,7 @@ import com.dto.AuthRequest;
 import com.dto.UtenteDTO;
 import com.entity.UserInfo;
 import com.service.JwtService;
+import com.service.UserService;
 import com.service.UserServiceImpl;
 
 @CrossOrigin
@@ -34,6 +35,9 @@ public class UserController {
 
 	@Autowired
 	private UserServiceImpl us;
+
+	@Autowired
+	private UserService uss;
 
 	@Autowired
 	private JwtService jwtService;
@@ -69,6 +73,7 @@ public class UserController {
 		if (authentication.isAuthenticated()) {
 			Map<String, String> tokenJson = new HashMap<String, String>();
 			tokenJson.put("token", jwtService.generateToken(authRequest.getEmail()));
+			tokenJson.put("userId", uss.findIdByEmail(authRequest.getEmail()).get());
 			return tokenJson;
 		}
 

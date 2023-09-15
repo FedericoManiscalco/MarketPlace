@@ -27,6 +27,14 @@ public class UserServiceImpl implements UserService {
 		return ur.findAll();
 	}
 
+	public Optional<UserInfo> findByEmail(String email) {
+		return ur.findByEmail(email);
+	}
+
+	public Optional<String> findIdByEmail(String email) {
+		return ur.findIdByEmail(email);
+	}
+
 	public UserInfo getUser(int id) {
 		Optional<UserInfo> userInfo = ur.findById(id);
 

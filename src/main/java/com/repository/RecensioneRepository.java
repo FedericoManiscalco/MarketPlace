@@ -9,6 +9,9 @@ import com.entity.Recensione;
 
 public interface RecensioneRepository extends JpaRepository<Recensione, Integer> {
 
+//	@Query("SELECT NEW(r.)")
+//	public List<RecensioneDTO> getRecensioni();
+
 	@Query("SELECT u.recensioniUtente FROM UserInfo u WHERE u.utenteId = :utenteId")
 	public List<Recensione> findRecensioniByUtente(Integer utenteId);
 
