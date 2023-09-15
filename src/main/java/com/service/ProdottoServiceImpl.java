@@ -52,6 +52,7 @@ public class ProdottoServiceImpl implements ProdottoService {
 	}
 
 	public List<Prodotto> findProdottoWithLimitAndOffset(Integer limit, Integer offset) {
+
 		return pr.findProdottoWithLimitAndOffset(limit, offset);
 	}
 

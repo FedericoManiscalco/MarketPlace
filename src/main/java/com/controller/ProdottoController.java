@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dto.CarrelloDTO;
@@ -53,9 +54,10 @@ public class ProdottoController {
 		return ps.findByProdottoIdIn(carrello);
 	}
 
-	@GetMapping("/getProdottiByOffsetAndLimit/{limit}/{offset}")
-	public List<Prodotto> findProdottoWithLimitAndOffset(@PathVariable Integer limit, @PathVariable Integer offset) {
-		return ps.findProdottoWithLimitAndOffset(limit, offset);
+	@GetMapping("/getProdottiByOffsetAndLimit")
+	public List<Prodotto> findProdottoWithLimitAndOffset(@RequestParam(name = "limit") String limit,
+			@RequestParam(name = "offset") String offset) {
+		return ps.findProdottoWithLimitAndOffset(Integer.parseInt(limit), Integer.parseInt(offset));
 	}
 
 	@PostMapping("/postProdotto")
