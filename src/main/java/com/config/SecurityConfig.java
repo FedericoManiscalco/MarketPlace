@@ -45,7 +45,8 @@ public class SecurityConfig {
 
 		return http.authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/api/v1/isRunning", "/api/v1/addUser", "/api/v1/getToken", "api/v1/getImage/**",
-					"api/v1/getProdotto", "api/v1/getProdottiByOffsetAndLimit", "api/v1/getProdottiById").permitAll();
+					"api/v1/getProdotto", "api/v1/getProdottiByOffsetAndLimit", "api/v1/getProdottiById",
+					"api/v1/getProdottiByNome/**").permitAll();
 			auth.anyRequest().authenticated();
 		}).csrf(csrf -> csrf.disable()).cors(withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -58,8 +59,8 @@ public class SecurityConfig {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200/"));
-		configuration.setAllowCredentials(true);
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowCredentials(false);
 		configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Access-Control-Allow-Origin",
 				"Access-Control-Request-Method", "Access-Control-Request-Headers", "Origin", "Cache-Control",
 				"Content-Type", "Authorization"));
