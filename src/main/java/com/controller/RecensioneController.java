@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,7 @@ public class RecensioneController {
 	}
 
 	@DeleteMapping("/deleteRecensione/{id}")
-	public ResponseEntity<String> deleteProdotto(@PathVariable Integer id) {
+	public ResponseEntity<Map<String, String>> deleteProdotto(@PathVariable Integer id) {
 		return rs.deleteRecensione(id);
 	}
 }

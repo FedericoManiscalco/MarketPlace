@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public interface UserService {
 
 	public ResponseEntity<UserInfo> patchUtente(UtenteDTO utenteDTO);
 
-	public ResponseEntity<String> deleteUtente(Integer id);
+	public ResponseEntity<Map<String, String>> deleteUtente(Integer id);
 
 	public Optional<UserInfo> findByEmail(String email);
 
